@@ -22,22 +22,20 @@ class MyApp extends StatelessWidget {
           title: const Text('Expense App'),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                width: double.infinity,
-                child: const Card(
-                  color: Colors.blue,
-                  elevation: 5.0,
-                  child: Text('CART!'),
-                ),
+        body: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: double.infinity,
+              child: const Card(
+                color: Colors.blue,
+                elevation: 5.0,
+                child: Text('CART!'),
               ),
-              const UserTransaction(),
-            ],
-          ),
+            ),
+            const UserTransaction(),
+          ],
         ),
       ),
     );
