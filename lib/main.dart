@@ -15,83 +15,81 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<Transcation> transcations = [];
-
-  // String? amountInput;
-  void _startAddNewTransaction(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return NewTransaction(_addNewTransaction);
-      },
-    );
-  }
-
   final List<Transcation> _userTransactions = [
     Transcation(
       id: 't1',
-      title: 'new shoes',
-      amount: 99.9,
+      title: 'New Shoes',
+      amount: 69.99,
       date: DateTime.now(),
     ),
     Transcation(
       id: 't2',
-      title: 'old shoes',
-      amount: 9.9,
+      title: 'Weekly Groceries',
+      amount: 16.53,
       date: DateTime.now(),
-    )
+    ),
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transcation(
-        title: txTitle,
-        amount: txAmount,
-        date: DateTime.now(),
-        id: DateTime.now().toString());
+      title: txTitle,
+      amount: txAmount,
+      date: DateTime.now(),
+      id: DateTime.now().toString(),
+    );
 
     setState(() {
       _userTransactions.add(newTx);
     });
   }
 
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+          child: NewTransaction(_addNewTransaction),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Expense App'),
-          centerTitle: true,
-          actions: [
+          title: const Text('Flutter App'),
+          actions: <Widget>[
             IconButton(
-              onPressed: (() {
-                _startAddNewTransaction(context);
-              }),
               icon: const Icon(Icons.add),
-            )
+              onPressed: () => _startAddNewTransaction(context),
+            ),
           ],
         ),
-        body: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              width: double.infinity,
-              child: const Card(
-                color: Colors.blue,
-                elevation: 5.0,
-                child: Text('CART!'),
+        body: SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                child: const Card(
+                  color: Colors.blue,
+                  elevation: 5,
+                  child: Text('CHART!'),
+                ),
               ),
-            ),
-            TransactionList(_userTransactions),
-          ],
+              TransactionList(_userTransactions),
+            ],
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _startAddNewTransaction(context);
-          },
           child: const Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
         ),
       ),
     );
